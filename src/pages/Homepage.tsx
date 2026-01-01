@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+
 function Homepage() {
+  const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    <div className="min-h-screen bg-linear-to-br from-green-50 to-emerald-100">
       {/* Navbar */}
       <nav className="flex items-center justify-between px-8 py-5">
         <h1 className="text-2xl font-bold text-emerald-700">
@@ -28,10 +31,16 @@ function Homepage() {
         </p>
 
         <div className="mt-8 flex gap-4">
-          <button className="px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition">
+          <button 
+            onClick={() => navigate('/classify')}
+            className="px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition"
+          >
             Upload Waste
           </button>
-          <button className="px-6 py-3 rounded-xl border border-emerald-600 text-emerald-700 font-semibold hover:bg-emerald-50 transition">
+          <button 
+            onClick={() => navigate('/about')}
+            className="px-6 py-3 rounded-xl border border-emerald-600 text-emerald-700 font-semibold hover:bg-emerald-50 transition"
+          >
             Learn More
           </button>
         </div>
