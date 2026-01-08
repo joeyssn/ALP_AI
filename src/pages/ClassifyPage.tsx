@@ -33,34 +33,6 @@ const ClassifyPage = () => {
   }, []);
 
   /* =========================
-     IMAGE AUGMENTATION
-  ========================= */
-  const augmentImage = (img: HTMLImageElement | HTMLCanvasElement) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d')!;
-
-    canvas.width = img.width;
-    canvas.height = img.height;
-
-    // Random horizontal flip
-    const flip = Math.random() > 0.5;
-    if (flip) {
-      ctx.translate(canvas.width, 0);
-      ctx.scale(-1, 1);
-    }
-
-    // Random brightness & contrast
-    const brightness = 0.9 + Math.random() * 0.2; // 0.9–1.1
-    const contrast = 0.9 + Math.random() * 0.2;
-
-    ctx.filter = `brightness(${brightness}) contrast(${contrast})`;
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    ctx.filter = 'none';
-
-    return canvas;
-  };
-
-  /* =========================
      IMAGE UPLOAD LOGIC
   ========================= */
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,7 +95,6 @@ const ClassifyPage = () => {
 
     webcamRef.current.update();
 
-    // 🔥 APPLY AUGMENTATION TO CAMERA FRAME
     const augmentedCanvas = augmentImage(webcamRef.current.canvas);
     const predictions = await model.predict(augmentedCanvas);
 
