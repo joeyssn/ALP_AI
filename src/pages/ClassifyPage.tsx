@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as tmImage from '@teachablemachine/image';
 import { useNavigate } from 'react-router-dom';
 
-const URL = "https://teachablemachine.withgoogle.com/models/n4-Fnzy4o/";
+const URL = "https://teachablemachine.withgoogle.com/models/m0koZxo2e/";
 
 const ClassifyPage = () => {
   const [model, setModel] = useState<tmImage.CustomMobileNet | null>(null);
@@ -19,9 +19,7 @@ const ClassifyPage = () => {
 
   const navigate = useNavigate();
 
-  /* =========================
-     LOAD MODEL
-  ========================= */
+  // Load model once
   useEffect(() => {
     const loadModel = async () => {
       const modelURL = URL + "model.json";
@@ -35,6 +33,7 @@ const ClassifyPage = () => {
   /* =========================
      IMAGE UPLOAD LOGIC
   ========================= */
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     stopCamera();
 
@@ -53,24 +52,21 @@ const ClassifyPage = () => {
   const predictImage = async () => {
     if (!model || !imageRef.current) return;
 
-    // 🔥 APPLY AUGMENTATION
-    const augmentedCanvas = augmentImage(imageRef.current);
-    const predictions = await model.predict(augmentedCanvas);
-
-    setImagePrediction(
-      predictions.sort((a, b) => b.probability - a.probability)
-    );
+    const predictions = await model.predict(imageRef.current);
+    setImagePrediction(predictions.sort((a, b) => b.probability - a.probability));
   };
 
   /* =========================
      LIVE CAMERA LOGIC
   ========================= */
+
   const startCamera = async () => {
     if (!model || cameraRunningRef.current) return;
 
     setImagePrediction([]);
     cameraRunningRef.current = true;
 
+    // 🔥 Larger webcam resolution
     const webcam = new tmImage.Webcam(480, 360, true);
     await webcam.setup();
     await webcam.play();
@@ -81,6 +77,7 @@ const ClassifyPage = () => {
       cameraContainerRef.current.innerHTML = '';
       cameraContainerRef.current.appendChild(webcam.canvas);
 
+      // 🔥 SCALE CANVAS TO PAGE
       webcam.canvas.style.width = '100%';
       webcam.canvas.style.maxWidth = '520px';
       webcam.canvas.style.height = 'auto';
@@ -95,12 +92,8 @@ const ClassifyPage = () => {
 
     webcamRef.current.update();
 
-    const augmentedCanvas = augmentImage(webcamRef.current.canvas);
-    const predictions = await model.predict(augmentedCanvas);
-
-    setCameraPrediction(
-      predictions.sort((a, b) => b.probability - a.probability)
-    );
+    const predictions = await model.predict(webcamRef.current.canvas);
+    setCameraPrediction(predictions.sort((a, b) => b.probability - a.probability));
 
     requestAnimationFrame(loop);
   };
@@ -117,11 +110,13 @@ const ClassifyPage = () => {
         ← Back
       </button>
 
+      {/* 🔥 WIDER PAGE */}
       <div className="bg-white p-10 rounded-3xl shadow-xl max-w-6xl w-full grid lg:grid-cols-2 gap-10">
 
-        {/* IMAGE UPLOAD */}
+        {/* ================= IMAGE UPLOAD ================= */}
         <div className="text-center">
           <h2 className="text-xl font-bold mb-4">📁 Upload Image</h2>
+
           <input type="file" accept="image/*" onChange={handleImageUpload} />
 
           <img
@@ -136,15 +131,18 @@ const ClassifyPage = () => {
               <h3 className="text-2xl font-bold text-emerald-600">
                 {imagePrediction[0].className}
               </h3>
-              <p>{(imagePrediction[0].probability * 100).toFixed(2)}%</p>
+              <p>
+                {(imagePrediction[0].probability * 100).toFixed(2)}%
+              </p>
             </div>
           )}
         </div>
 
-        {/* LIVE CAMERA */}
+        {/* ================= LIVE CAMERA ================= */}
         <div className="text-center">
           <h2 className="text-xl font-bold mb-4">🎥 Live Camera</h2>
 
+          {/* 🔥 CAMERA FRAME */}
           <div
             ref={cameraContainerRef}
             className="flex justify-center mb-4 w-full bg-black rounded-2xl overflow-hidden"
@@ -171,7 +169,9 @@ const ClassifyPage = () => {
               <h3 className="text-2xl font-bold text-emerald-600">
                 {cameraPrediction[0].className}
               </h3>
-              <p>{(cameraPrediction[0].probability * 100).toFixed(2)}%</p>
+              <p>
+                {(cameraPrediction[0].probability * 100).toFixed(2)}%
+              </p>
             </div>
           )}
         </div>
