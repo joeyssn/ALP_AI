@@ -30,9 +30,6 @@ const ClassifyPage = () => {
     loadModel();
   }, []);
 
-  /* =========================
-     IMAGE UPLOAD LOGIC
-  ========================= */
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     stopCamera();
@@ -56,9 +53,6 @@ const ClassifyPage = () => {
     setImagePrediction(predictions.sort((a, b) => b.probability - a.probability));
   };
 
-  /* =========================
-     LIVE CAMERA LOGIC
-  ========================= */
 
   const startCamera = async () => {
     if (!model || cameraRunningRef.current) return;
@@ -113,7 +107,6 @@ const ClassifyPage = () => {
       {/* 🔥 WIDER PAGE */}
       <div className="bg-white p-10 rounded-3xl shadow-xl max-w-6xl w-full grid lg:grid-cols-2 gap-10">
 
-        {/* ================= IMAGE UPLOAD ================= */}
         <div className="text-center">
           <h2 className="text-xl font-bold mb-4">📁 Upload Image</h2>
 
@@ -138,7 +131,6 @@ const ClassifyPage = () => {
           )}
         </div>
 
-        {/* ================= LIVE CAMERA ================= */}
         <div className="text-center">
           <h2 className="text-xl font-bold mb-4">🎥 Live Camera</h2>
 

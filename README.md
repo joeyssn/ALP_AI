@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# WasteSorter  
+AI-Powered Waste Classification Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
+WasteSorter is a web-based application that uses Artificial Intelligence to classify waste into categories such as organic, recyclable, and hazardous. The system integrates a Teachable Machine image classification model into a React and TypeScript frontend, allowing users to upload images or use live camera input for real-time waste detection.
 
-Currently, two official plugins are available:
+This project is developed as an academic and prototype-level solution to demonstrate client-side AI usage for environmental awareness and waste management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
+- Image upload-based waste classification  
+- Real-time waste detection using webcam  
+- Client-side AI inference without a backend  
+- Fast prediction using TensorFlow.js  
+- Responsive and modern user interface  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## AI Model
+- Platform: Google Teachable Machine  
+- Model Type: Image Classification  
+- Architecture: MobileNet (TensorFlow.js)  
+- Inference runs entirely in the browser  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Note: Teachable Machine is suitable for prototyping and educational purposes. For production use, a custom-trained model with a larger dataset is recommended.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Technology Stack
+- Frontend: React with TypeScript  
+- Styling: Tailwind CSS  
+- AI Framework: TensorFlow.js  
+- Model Loader: @teachablemachine/image  
+- Routing: React Router  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+src/
+├── pages/
+│ ├── Homepage.tsx
+│ ├── ClassifyPage.tsx
+│ └── About.tsx
+├── App.tsx
+├── main.tsx
+└── index.css
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## Application Flow
+1. The AI model is loaded once when the application initializes.  
+2. Users upload an image or activate the webcam.  
+3. The image or camera frame is passed to the AI model.  
+4. The predicted waste category and confidence score are displayed.  
+5. All inference is performed locally in the user's browser.
+
+---
+
+## Installation and Usage
+```bash
+npm install
+npm run dev
