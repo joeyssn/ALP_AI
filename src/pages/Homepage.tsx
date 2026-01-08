@@ -17,7 +17,7 @@ function Homepage() {
       {/* Hero Section */}
       <main className="flex flex-col items-center justify-center text-center px-6 mt-20">
         <span className="text-sm font-semibold text-emerald-600 bg-emerald-100 px-4 py-1 rounded-full mb-4">
-          AI Powered Waste Sorting
+          AI Powered Waste Classifier
         </span>
 
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 max-w-3xl leading-tight">
