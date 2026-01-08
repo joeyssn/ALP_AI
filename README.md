@@ -1,3 +1,5 @@
+Github Link: https://github.com/joeyssn/ALP_AI
+
 # WasteSorter  
 AI-Powered Waste Classification Web Application
 

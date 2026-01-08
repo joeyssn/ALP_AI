@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-function HomePage() {
+function Homepage() {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-linear-to-br from-green-50 to-emerald-100">
@@ -79,4 +79,4 @@ function HomePage() {
   )
 }
 
-export default HomePage
+export default Homepage
